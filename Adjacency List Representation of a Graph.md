@@ -37,12 +37,64 @@ To write a Python program to demonstrate the **adjacency list representation** o
 ## PYTHON PROGRAM
 
 ```
-ENTER YOUR CODE HERE
+# Reg.No: 212223060057
+# Name: DINESH KUMAR A
+# Ex.No: 17E - Adjacency List Representation of a Graph
+
+class AdjNode:
+    def __init__(self, vertex):
+        self.vertex = vertex
+        self.next = None
+
+class Graph:
+    def __init__(self, V):
+        self.V = V
+        self.graph = [None] * V  # Array of adjacency lists
+
+    def add_edge(self, src, dest):
+        # Add edge from src to dest
+        node = AdjNode(dest)
+        node.next = self.graph[src]
+        self.graph[src] = node
+
+        # For undirected graph, add edge from dest to src
+        node = AdjNode(src)
+        node.next = self.graph[dest]
+        self.graph[dest] = node
+
+    def print_graph(self):
+        for i in range(self.V):
+            print(f"Adjacency list of vertex {i}:", end="")
+            temp = self.graph[i]
+            while temp:
+                print(f" -> {temp.vertex}", end="")
+                temp = temp.next
+            print()
+
+# Main program
+V = 5  # Number of vertices
+graph = Graph(V)
+
+# Adding edges
+edges = [(0, 1), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (3, 4)]
+for (src, dest) in edges:
+    graph.add_edge(src, dest)
+
+# Print adjacency list representation
+graph.print_graph()
+
 ```
 
 ## OUTPUT
 ```
+Adjacency list of vertex 0: -> 4 -> 1
+Adjacency list of vertex 1: -> 4 -> 3 -> 2 -> 0
+Adjacency list of vertex 2: -> 3 -> 1
+Adjacency list of vertex 3: -> 4 -> 2 -> 1
+Adjacency list of vertex 4: -> 3 -> 1 -> 0
+
 ```
 
 ## RESULT
+The Python program successfully demonstrated the adjacency list representation of an undirected graph.
 
