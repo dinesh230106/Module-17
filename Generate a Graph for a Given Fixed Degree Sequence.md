@@ -21,11 +21,40 @@ To write a Python program to generate a graph for a given **fixed degree sequenc
 ## PYTHON PROGRAM
 
 ```
-ENTER YOUR CODE HERE
+# Reg.No: 212223060057
+# Name: DINESH KUMAR A
+# Ex.No: 17A - Generate a Graph for a Given Fixed Degree Sequence
+
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Input degree sequence
+degree_sequence = [3, 3, 2, 2, 2, 2]  # Example degree sequence
+
+# Check if sum of degrees is even
+if sum(degree_sequence) % 2 != 0:
+    print("Error: Degree sequence sum must be even. Graph cannot be constructed.")
+else:
+    # Generate graph using Havel-Hakimi algorithm
+    try:
+        G = nx.havel_hakimi_graph(degree_sequence)
+        print("Graph successfully generated!")
+        
+        # Draw the graph
+        nx.draw(G, with_labels=True, node_color='skyblue', node_size=800, edge_color='black')
+        plt.title("Graph Generated from Degree Sequence")
+        plt.show()
+    except nx.NetworkXError as e:
+        print("Error:", e)
+
 ```
 
 ## OUTPUT
 ```
+Graph successfully generated!
+
 ```
 
 ## RESULT
+The Python program successfully generated a graph for the given fixed degree sequence and displayed it visually using networkx.
+
