@@ -25,56 +25,51 @@ To write a Python program to **print topological sorting** of a **Directed Acycl
 ```
 # Reg.No: 212223060057
 # Name: DINESH KUMAR A
-# Ex.No: 17D - Topological Sorting of a DAG
+# A Python3 program to print topological sorting of a DAG
+def addEdge(u, v):
+	global adj
+	adj[u].append(v)
 
-from collections import defaultdict
+# The function to do DFS() and stores departure time
+# of all vertex
+def DFS(v):
+	global visited, departure, time
+	visited[v] = 1
+	for i in adj[v]:
+		if visited[i] == 0:
+			DFS(i)
+	departure[time] = v
+	time += 1
 
-class Graph:
-    def __init__(self, vertices):
-        self.graph = defaultdict(list)
-        self.V = vertices
+# The function to do Topological Sort. It uses DFS().
+def topologicalSort():
+    for i in range(V):
+        if visited[i]==0:
+            DFS(i)
+    for i in range(V-1,-1,-1):
+        print(departure[i],end=" ")
 
-    def add_edge(self, u, v):
-        self.graph[u].append(v)
 
-    def topological_sort_util(self, v, visited, stack):
-        visited[v] = True
-        for neighbor in self.graph[v]:
-            if not visited[neighbor]:
-                self.topological_sort_util(neighbor, visited, stack)
-        stack.append(v)
+# Driver code
+if __name__ == '__main__':
 
-    def topological_sort(self):
-        visited = [False] * self.V
-        stack = []
+	# Create a graph given in the above diagram
+	V,time, adj, visited, departure = 6, 0, [[] for i in range(7)], [0 for i in range(7)],[-1 for i in range(7)]
+	addEdge(5, 2)
+	addEdge(5, 0)
+	addEdge(4, 0)
+	addEdge(4, 1)
+	addEdge(2, 3)
+	addEdge(3, 1)
 
-        for i in range(self.V):
-            if not visited[i]:
-                self.topological_sort_util(i, visited, stack)
-
-        print("Topological Sort of the DAG:")
-        while stack:
-            print(stack.pop(), end=" ")
-
-# Example usage
-g = Graph(6)
-g.add_edge(5, 2)
-g.add_edge(5, 0)
-g.add_edge(4, 0)
-g.add_edge(4, 1)
-g.add_edge(2, 3)
-g.add_edge(3, 1)
-
-g.topological_sort()
+	print("Topological Sort of the given graph is")
+	topologicalSort()
 
 ```
 
 ## OUTPUT
-```
-Topological Sort of the DAG:
-5 4 2 3 1 0
+<img width="849" height="173" alt="image" src="https://github.com/user-attachments/assets/8e52a23b-2ffe-4f67-bb1d-c9704bbc4e6e" />
 
-```
 
 ## RESULT
 The program successfully prints the topological ordering of a Directed Acyclic Graph (DAG) using DFS.
