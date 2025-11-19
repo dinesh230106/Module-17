@@ -39,61 +39,74 @@ To write a Python program to demonstrate the **adjacency list representation** o
 ```
 # Reg.No: 212223060057
 # Name: DINESH KUMAR A
-# Ex.No: 17E - Adjacency List Representation of a Graph
+# A class to represent the adjacency list of the node
+
 
 class AdjNode:
-    def __init__(self, vertex):
-        self.vertex = vertex
-        self.next = None
+	def __init__(self, data):
+		self.vertex = data
+		self.next = None
 
+
+# A class to represent a graph. A graph
+# is the list of the adjacency lists.
+# Size of the array will be the no. of the
+# vertices "V"
 class Graph:
-    def __init__(self, V):
-        self.V = V
-        self.graph = [None] * V  # Array of adjacency lists
+	def __init__(self, vertices):
+		self.V = vertices
+		self.graph = [None] * self.V
 
-    def add_edge(self, src, dest):
-        # Add edge from src to dest
-        node = AdjNode(dest)
-        node.next = self.graph[src]
-        self.graph[src] = node
+	# Function to add an edge in an undirected graph
+	def add_edge(self, src, dest):
+		# Adding the node to the source node
+		node = AdjNode(dest)
+		node.next = self.graph[src]
+		self.graph[src] = node
 
-        # For undirected graph, add edge from dest to src
-        node = AdjNode(src)
-        node.next = self.graph[dest]
-        self.graph[dest] = node
+		# Adding the source node to the destination as
+		# it is the undirected graph
+		node = AdjNode(src)
+		node.next = self.graph[dest]
+		self.graph[dest] = node
 
-    def print_graph(self):
-        for i in range(self.V):
-            print(f"Adjacency list of vertex {i}:", end="")
-            temp = self.graph[i]
-            while temp:
-                print(f" -> {temp.vertex}", end="")
-                temp = temp.next
-            print()
+	
+	def print_graph(self):
+	    for i in range(self.V):
+	        print('Adjacency list of vertex {}\n'.format(i,i),end="")
+	        print("",i,"",end="")
+	        
+	        temp=self.graph[i]
+	        while temp:
+	            print('-> {}'.format(temp.vertex),end=" ")
+	            temp=temp.next
+	        print('\n')
+		
+		
+		#Write Code here
 
-# Main program
-V = 5  # Number of vertices
-graph = Graph(V)
 
-# Adding edges
-edges = [(0, 1), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (3, 4)]
-for (src, dest) in edges:
-    graph.add_edge(src, dest)
 
-# Print adjacency list representation
-graph.print_graph()
 
+
+# Driver program to the above graph class
+if __name__ == "__main__":
+	V = 5
+	graph = Graph(V)
+	graph.add_edge(0, 1)
+	graph.add_edge(0, 4)
+	graph.add_edge(1, 2)
+	graph.add_edge(1, 3)
+	graph.add_edge(1, 4)
+	graph.add_edge(2, 3)
+	graph.add_edge(3, 4)
+
+	graph.print_graph()
 ```
 
 ## OUTPUT
-```
-Adjacency list of vertex 0: -> 4 -> 1
-Adjacency list of vertex 1: -> 4 -> 3 -> 2 -> 0
-Adjacency list of vertex 2: -> 3 -> 1
-Adjacency list of vertex 3: -> 4 -> 2 -> 1
-Adjacency list of vertex 4: -> 3 -> 1 -> 0
+<img width="791" height="459" alt="image" src="https://github.com/user-attachments/assets/77dba577-6a00-40e9-8912-a1588549e172" />
 
-```
 
 ## RESULT
 The Python program successfully demonstrated the adjacency list representation of an undirected graph.
