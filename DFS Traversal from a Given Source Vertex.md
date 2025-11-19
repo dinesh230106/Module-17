@@ -30,51 +30,71 @@ To write a Python program to **print DFS traversal** from a given source vertex.
 ```
 # Reg.No: 212223060057
 # Name: DINESH KUMAR A
-# Ex.No: 17C - DFS Traversal from a Given Source Vertex
+# Python3 program to print DFS traversal
+# from a given graph
+from collections import defaultdict
+
+# This class represents a directed graph using
+# adjacency list representation
+
 
 class Graph:
-    def __init__(self, vertices):
-        self.V = vertices
-        self.graph = [[] for _ in range(vertices)]
-    
-    def addEdge(self, u, v):
-        self.graph[u].append(v)
-        self.graph[v].append(u)  # For undirected graph
 
-    def DFSUtil(self, v, visited, dfs_order):
-        visited[v] = True
-        dfs_order.append(v)
-        for neighbor in self.graph[v]:
-            if not visited[neighbor]:
-                self.DFSUtil(neighbor, visited, dfs_order)
+	# Constructor
+	def __init__(self):
 
-    def DFS(self, start):
-        visited = [False] * self.V
-        dfs_order = []
-        self.DFSUtil(start, visited, dfs_order)
-        return dfs_order
+		# default dictionary to store graph
+		self.graph = defaultdict(list)
 
-# Main Program
-V = 5  # Number of vertices
-g = Graph(V)
+	# function to add an edge to graph
+	def addEdge(self, u, v):
+		self.graph[u].append(v)
 
-# Adding edges
-edges = [(0, 1), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (3, 4)]
-for (u, v) in edges:
-    g.addEdge(u, v)
+	# A function used by DFS
+	def DFSUtil(self, v, visited):
 
-start_vertex = 0
-print("DFS Traversal starting from vertex", start_vertex, ":")
-print(g.DFS(start_vertex))
+		# Mark the current node as visited
+		# and print it
+		visited.add(v)
+		print(v,end=" ")
+		for neighbour in self.graph[v]:
+		    if neighbour not in visited:
+		        self.DFSUtil(neighbour,visited)
+		
+		
+	# The function to do DFS traversal. It uses
+	# recursive DFSUtil()
+	def DFS(self, v):
+
+		# Create a set to store visited vertices
+		visited = set()
+
+		# Call the recursive helper function
+		# to print DFS traversal
+		self.DFSUtil(v, visited)
+
+# Driver code
+
+
+# Create a graph given
+# in the above diagram
+n=int(input())
+g = Graph()
+g.addEdge(0, 1)
+g.addEdge(0, 2)
+g.addEdge(1, 2)
+g.addEdge(2, 0)
+g.addEdge(2, 3)
+g.addEdge(3, 3)
+
+print("Following is DFS from (starting from vertex {})".format(n))
+g.DFS(n)
 
 ```
 
 ## OUTPUT
-```
-DFS Traversal starting from vertex 0 :
-[0, 1, 2, 3, 4]
+<img width="1050" height="242" alt="image" src="https://github.com/user-attachments/assets/63a03668-d1d3-4ab6-8682-29ad7e553954" />
 
-```
 
 ## RESULT
 The Python program successfully performed DFS traversal from the given source vertex, printing all reachable vertices in depth-first order.
