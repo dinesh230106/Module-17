@@ -28,58 +28,65 @@ To write a Python program to **print BFS traversal** from a given source vertex.
 ```
 # Reg.No: 212223060057
 # Name: DINESH KUMAR A
-# Ex.No: 17B - BFS Traversal from a Given Source Vertex
+# Python3 Program to print BFS traversal
+# from a given source vertex. BFS(int s)
+# traverses vertices reachable from s.
+from collections import defaultdict
 
-from collections import deque
-
+# This class represents a directed graph
+# using adjacency list representation
 class Graph:
-    def __init__(self, vertices):
-        self.V = vertices
-        self.graph = [[] for _ in range(vertices)]
 
-    def addEdge(self, u, v):
-        self.graph[u].append(v)
-        self.graph[v].append(u)  # For undirected graph
+	# Constructor
+	def __init__(self):
 
-    def BFS(self, start):
-        visited = [False] * self.V
-        queue = deque()
-        visited[start] = True
-        queue.append(start)
+		# default dictionary to store graph
+		self.graph = defaultdict(list)
 
-        bfs_order = []
+	# function to add an edge to graph
+	def addEdge(self,u,v):
+		self.graph[u].append(v)
 
-        while queue:
-            vertex = queue.popleft()
-            bfs_order.append(vertex)
+	# Function to print a BFS of graph
+	def BFS(self, s):
 
-            for neighbor in self.graph[vertex]:
-                if not visited[neighbor]:
-                    visited[neighbor] = True
-                    queue.append(neighbor)
-        return bfs_order
+		# Mark all the vertices as not visited
+		visited = [False] * (max(self.graph) + 1)
 
-# Main Program
-V = 5  # Number of vertices
-g = Graph(V)
+		# Create a queue for BFS
+		queue = []
 
-# Adding edges
-edges = [(0, 1), (0, 4), (1, 2), (1, 3), (1, 4), (2, 3), (3, 4)]
-for (u, v) in edges:
-    g.addEdge(u, v)
+		# Mark the source node as
+		# visited and enqueue it
+		queue.append(s)
+		visited[s] = True
+		while queue:
+		    s=queue.pop(0)
+		    print(s,end=' ')
+		    for i in self.graph[s]:
+		        if visited[i]==False:
+		            queue.append(i)
+		            visited[i]=True	
 
-start_vertex = 0
-print("BFS Traversal starting from vertex", start_vertex, ":")
-print(g.BFS(start_vertex))
+# Create a graph given in
+# the above diagram
+n=int(input())
+g = Graph()
+g.addEdge(0, 1)
+g.addEdge(0, 2)
+g.addEdge(1, 2)
+g.addEdge(2, 0)
+g.addEdge(2, 3)
+g.addEdge(3, 3)
 
+print ("Following is Breadth First Traversal"
+				" (starting from vertex {})".format(n))
+g.BFS(n)
 ```
 
 ## OUTPUT
-```
-BFS Traversal starting from vertex 0 :
-[0, 1, 4, 2, 3]
+<img width="1117" height="269" alt="image" src="https://github.com/user-attachments/assets/f3f2134f-602b-41d8-898c-dfcca73d7251" />
 
-```
 
 
 ## RESULT
