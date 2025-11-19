@@ -23,37 +23,49 @@ To write a Python program to generate a graph for a given **fixed degree sequenc
 ```
 # Reg.No: 212223060057
 # Name: DINESH KUMAR A
-# Ex.No: 17A - Generate a Graph for a Given Fixed Degree Sequence
+Python3 program to generate a graph
+# for a given fixed degrees
 
-import networkx as nx
-import matplotlib.pyplot as plt
+# A function to print the adjacency matrix.
+def printMat(degseq, n):
+	
+	# n is number of vertices
+	mat=[[0]*n for i in range (n)]
+	for i in range (n):
+	    for j in range(i+1,n):
+	        if(degseq[i]>0 and degseq[j]>0):
+	            degseq[i]-=1
+	            degseq[j]-=1
+	            mat[i][j]=1
+	            mat[j][i]=1
 
-# Input degree sequence
-degree_sequence = [3, 3, 2, 2, 2, 2]  # Example degree sequence
+	
+	# Print the result in specified form
+	print("      ", end ="")
+	for i in range(n):
+		print(" ", "(", i, ")", end ="")
+	print()
+	print()
+	for i in range(n):
+		print("  ", "(", i, ")", end = " ")
+		for j in range(n):
+			print("  ", mat[i][j], end = " ")
+		print()
 
-# Check if sum of degrees is even
-if sum(degree_sequence) % 2 != 0:
-    print("Error: Degree sequence sum must be even. Graph cannot be constructed.")
-else:
-    # Generate graph using Havel-Hakimi algorithm
-    try:
-        G = nx.havel_hakimi_graph(degree_sequence)
-        print("Graph successfully generated!")
-        
-        # Draw the graph
-        nx.draw(G, with_labels=True, node_color='skyblue', node_size=800, edge_color='black')
-        plt.title("Graph Generated from Degree Sequence")
-        plt.show()
-    except nx.NetworkXError as e:
-        print("Error:", e)
+# Driver Code
+degseq=[]
+for i in range(0, 5):
+    ele = int(input())
+  
+    degseq.append(ele)
+#degseq =[v0,v1,v2,v3,v4]
 
+n = len(degseq)
+printMat(degseq, n)
 ```
 
 ## OUTPUT
-```
-Graph successfully generated!
-
-```
+<img width="1007" height="297" alt="image" src="https://github.com/user-attachments/assets/737f1a91-0af6-40f0-a9da-80208851c273" />
 
 ## RESULT
 The Python program successfully generated a graph for the given fixed degree sequence and displayed it visually using networkx.
